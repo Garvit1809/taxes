@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# taxez
 
-## Getting Started
+A rebuild of [taxez.co.uk](https://www.taxez.co.uk) in Next.js with an original design system.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + **React 19**
+- **TypeScript** (strict)
+- **Tailwind CSS v4** with a token-based theme layer
+- No UI or animation dependencies — every component is hand-built
+
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build
+npm start
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    layout.tsx          root shell: fonts, metadata, header/footer, theme script
+    page.tsx            homepage
+    pricing/            interactive price explorer + full price table
+    services/           six service blocks + self-assessment detail
+    why-us/             the ten reasons
+    about/  faqs/  software/  contact/  blog/
+    api/contact/        POST endpoint for the quote form
+    sitemap.ts robots.ts not-found.tsx
+  components/
+    ui.tsx              Container, Section, SectionHead, Button, Pill, Card, icons
+    site-header.tsx     sticky nav, scroll state, mobile drawer
+    site-footer.tsx
+    sections.tsx        PageHero, CTASection, FilingMarquee
+    pricing-explorer.tsx  turnover selector with live price + savings bar
+    accordion.tsx       accessible FAQ disclosure
+    quote-form.tsx      contact/quote form with client validation
+    reveal.tsx          IntersectionObserver fade-in
+    theme-toggle.tsx    light/dark, stored in localStorage
+  lib/
+    content.ts          all site copy, prices, services, FAQs — single source of truth
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+Prices, services, FAQs, testimonials and form options all live in `src/lib/content.ts`.
+Changing a price there updates the homepage, the pricing explorer, the price table
+and the contact page price guide together.
 
-To learn more about Next.js, take a look at the following resources:
+## Design system
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Colours, shadows and radii are CSS custom properties in `src/app/globals.css`, exposed
+to Tailwind through `@theme inline`. Light is defined on `:root`, dark under
+`[data-theme="dark"]`, so every colour has an explicit value in both themes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Fonts: **Plus Jakarta Sans** (headings), **Inter** (body/UI), **Instrument Serif**
+(display accents and pull quotes).
 
-## Deploy on Vercel
+## Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Scroll reveals are visible by default and only armed once the inline head script
+  runs, so the page still reads with JavaScript disabled.
+- `POST /api/contact` validates the payload and currently logs the enquiry. Wire it
+  to your mail provider or CRM in `src/app/api/contact/route.ts` — that is the only
+  place delivery needs to change.
+- FAQ answers are emitted as `FAQPage` JSON-LD for search results.

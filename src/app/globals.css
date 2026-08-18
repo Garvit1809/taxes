@@ -1,26 +1,216 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ------------------------------------------------------------------
+   Design tokens — taxez
+   Ink navy + mint accent. Warm neutral canvas. Both themes explicit.
+------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --canvas: #f7f7f5;
+  --surface: #ffffff;
+  --surface-2: #f1f2f0;
+  --surface-inset: #eceeeb;
+
+  --ink: #0a1420;
+  --ink-2: #38445a;
+  --ink-3: #6b7688;
+
+  --line: #e3e5e2;
+  --line-strong: #cfd3ce;
+
+  --brand: #072033;
+  --brand-2: #0d3b5c;
+  --brand-soft: #e7eef3;
+
+  --accent: #00a878;
+  --accent-ink: #00654a;
+  --accent-soft: #dff5ec;
+
+  --gold: #b98a2f;
+  --gold-soft: #f7efdd;
+
+  --brand-fg: #ffffff;
+  --accent-fg: #04140f;
+  --ring: #00a878;
+
+  --shadow-sm: 0 1px 2px rgb(10 20 32 / 0.05);
+  --shadow-md: 0 4px 16px -4px rgb(10 20 32 / 0.09), 0 1px 3px rgb(10 20 32 / 0.05);
+  --shadow-lg: 0 24px 60px -20px rgb(10 20 32 / 0.22), 0 4px 12px -4px rgb(10 20 32 / 0.07);
+  --shadow-glow: 0 0 0 1px rgb(0 168 120 / 0.18), 0 18px 50px -18px rgb(0 168 120 / 0.35);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --canvas: #050d14;
+  --surface: #0b161f;
+  --surface-2: #0f1d28;
+  --surface-inset: #132433;
+
+  --ink: #e8eef4;
+  --ink-2: #a3b2c2;
+  --ink-3: #74869a;
+
+  --line: #162634;
+  --line-strong: #22384a;
+
+  --brand: #e8eef4;
+  --brand-soft: #10202c;
+
+  --accent: #2ee6a8;
+  --accent-soft: #0c2a22;
+
+  --gold: #e0b45f;
+  --gold-soft: #241d0e;
+
+  --brand-fg: #051019;
+  --accent-fg: #04140f;
+  --ring: #2ee6a8;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 16px -4px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 24px 60px -20px rgb(0 0 0 / 0.7);
+  --shadow-glow: 0 0 0 1px rgb(46 230 168 / 0.22), 0 18px 50px -18px rgb(46 230 168 / 0.3);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-inset: var(--surface-inset);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-fg: var(--brand-fg);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --radius-card: 18px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: #04140f;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.028em;
+  font-weight: 700;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- Decorative utilities ---------------- */
+
+.grid-lines {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.mask-fade-b {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+}
+
+.mask-fade-radial {
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--ink) 20%, color-mix(in srgb, var(--accent) 85%, var(--ink)) 65%, var(--ink) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, var(--line-strong) 20%, var(--line-strong) 80%, transparent);
+}
+
+/* ---------------- Motion ---------------- */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* Content is visible by default so the page still reads without JavaScript.
+   The inline head script sets data-reveal="on", which arms the hidden state
+   only when JS is actually running to release it again. */
+.reveal {
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="on"] .reveal[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.animate-floaty { animation: floaty 7s ease-in-out infinite; }
+.animate-marquee { animation: marquee 38s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal="on"] .reveal[data-visible="false"] { opacity: 1; transform: none; }
+  .reveal { transition: none; }
+  .animate-floaty, .animate-marquee { animation: none; }
 }
