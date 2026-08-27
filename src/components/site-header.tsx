@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav, site } from "@/lib/content";
+import { nav } from "@/lib/content";
 import { Logo } from "./logo";
-import { ThemeToggle } from "./theme-toggle";
 import { ArrowRight, ButtonLink, Container } from "./ui";
 
 export function SiteHeader() {
@@ -64,13 +63,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle className="max-sm:hidden" />
-            <Link
-              href={site.loginUrl}
-              className="hidden rounded-full px-3.5 py-2 text-[0.9375rem] font-medium text-ink-2 transition-colors hover:text-ink sm:block"
-            >
-              Client login
-            </Link>
             <ButtonLink href="/contact" variant="accent" size="sm">
               Get a quote <ArrowRight />
             </ButtonLink>
@@ -116,11 +108,10 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-3 py-5">
-            <ButtonLink href={site.loginUrl} variant="outline" size="md" className="flex-1">
-              Client login
+          <div className="py-5">
+            <ButtonLink href="/contact" onClick={() => setOpen(false)} variant="accent" size="md" className="w-full">
+              Get a fixed quote <ArrowRight />
             </ButtonLink>
-            <ThemeToggle className="h-11 w-11 shrink-0" />
           </div>
         </Container>
       </div>

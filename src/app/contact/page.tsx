@@ -3,17 +3,17 @@ import { QuoteForm } from "@/components/quote-form";
 import { Reveal } from "@/components/reveal";
 import { PageHero } from "@/components/sections";
 import { Check, Container, Section } from "@/components/ui";
-import { site, tiers } from "@/lib/content";
+import { monthlyPlan, servicePrices, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact & quote",
   description:
-    "Tell us your business type and turnover and a chartered accountant will send you a fixed annual price, usually within one working day.",
+    "Tell us your business type and what you need filed and a qualified accountant will send you a fixed price, usually within one working day.",
 };
 
 const assurances = [
-  "A chartered accountant reads every enquiry personally",
-  "A fixed annual price, before any work begins",
+  "A qualified accountant reads every enquiry personally",
+  "A fixed price, agreed before any work begins",
   "No sales calls and no marketing lists",
   "Switching from another accountant? We handle the handover",
 ];
@@ -58,22 +58,28 @@ export default function ContactPage() {
                 <div className="rounded-card border border-line bg-surface p-7">
                   <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-3">Price guide</h2>
                   <ul className="mt-5 divide-y divide-[var(--line)]">
-                    {tiers.slice(0, 4).map((tier) => (
-                      <li key={tier.band} className="flex items-baseline justify-between gap-4 py-2.5">
-                        <span className="text-[0.875rem] text-ink-2">{tier.short}</span>
-                        <span className="font-display text-[1.0625rem] font-bold text-ink tabular">£{tier.price}</span>
+                    {servicePrices.slice(0, 5).map((s) => (
+                      <li key={`${s.name}-${s.variant ?? ""}`} className="flex items-baseline justify-between gap-4 py-2.5">
+                        <span className="text-[0.875rem] text-ink-2">
+                          {s.name}
+                          {s.variant ? <span className="text-ink-3"> · {s.variant}</span> : null}
+                        </span>
+                        <span className="shrink-0 font-display text-[1.0625rem] font-bold text-ink tabular">
+                          {s.from ? "from " : ""}£{s.price}
+                        </span>
                       </li>
                     ))}
                   </ul>
                   <p className="mt-4 text-[0.8125rem] leading-relaxed text-ink-3">
-                    Annual business package. Self assessment from £59. Full list on the pricing page.
+                    Or £{monthlyPlan.price} a month for everything on the Complete Monthly plan. Full
+                    list on the pricing page.
                   </p>
                 </div>
 
                 <div className="rounded-card border border-line bg-brand p-7 text-brand-fg">
-                  <p className="font-display text-[2rem] leading-none tracking-[-0.04em] tabular">{site.clients}</p>
-                  <p className="mt-2.5 text-[0.9375rem] opacity-70">
-                    UK businesses and individuals already file through {site.name}.
+                  <p className="font-serif text-[1.5rem] leading-snug">{site.tagline}</p>
+                  <p className="mt-3 text-[0.9375rem] opacity-70">
+                    Accounts, taxation and advisory — {site.strapline.toLowerCase()}.
                   </p>
                 </div>
               </div>

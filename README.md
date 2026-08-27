@@ -1,6 +1,6 @@
-# taxez
+# Next Step Accountancy
 
-A rebuild of [taxez.co.uk](https://www.taxez.co.uk) in Next.js with an original design system.
+Marketing site for Next Step Accountancy — accounts, taxation and advisory for UK small business. Built with Next.js.
 
 ## Stack
 

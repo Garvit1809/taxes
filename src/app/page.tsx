@@ -1,15 +1,16 @@
 import Link from "next/link";
-import { Accordion } from "@/components/accordion";
 import { PricingExplorer } from "@/components/pricing-explorer";
 import { Reveal } from "@/components/reveal";
 import { CTASection, FilingMarquee } from "@/components/sections";
 import { ArrowRight, ButtonLink, Check, Container, Eyebrow, Pill, Section, SectionHead } from "@/components/ui";
-import { faqs, reasons, services, site, steps, testimonials, tiers } from "@/lib/content";
+import { monthlyPlan, reasons, services, site, steps, testimonials } from "@/lib/content";
 
+// TODO(client): `site.clients` and `site.savingRange` render as "TODO" until the
+// real figures are supplied in src/lib/content.ts.
 const stats = [
   { value: site.clients, label: "UK clients served" },
-  { value: "75–90%", label: "Lower than high street firms" },
-  { value: `£${site.fromPrice}`, label: "Accounts & tax return, per year" },
+  { value: site.savingRange, label: "Below typical high street fees" },
+  { value: `£${monthlyPlan.price}`, label: "A month, everything included" },
   { value: "1–2 days", label: "Typical reply to any query" },
 ];
 
@@ -30,35 +31,34 @@ export default function HomePage() {
               <Reveal>
                 <span className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface py-1.5 pl-1.5 pr-4 text-[0.8125rem] text-ink-2 shadow-[var(--shadow-sm)]">
                   <span className="rounded-full bg-accent-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">
-                    Chartered
+                    {site.strapline}
                   </span>
-                  Currently helping {site.clients} clients across the UK
+                  {site.tagline}
                 </span>
               </Reveal>
 
               <Reveal delay={70}>
-                <h1 className="mt-7 text-balance text-[2.75rem] leading-[1.02] sm:text-[4rem] lg:text-[4.25rem]">
-                  The UK&apos;s{" "}
+                <h1 className="mt-7 text-balance text-[2.75rem] leading-[1.02] sm:text-[3.75rem] lg:text-[4rem]">
+                  Accounts, taxation and advisory &mdash;{" "}
                   <span className="relative whitespace-nowrap">
-                    <span className="font-serif font-normal italic text-accent">cheapest</span>
+                    <span className="font-serif font-normal italic text-accent">priced plainly</span>
                     <svg
                       aria-hidden
-                      viewBox="0 0 220 12"
+                      viewBox="0 0 300 12"
                       preserveAspectRatio="none"
                       className="absolute -bottom-1 left-0 h-2.5 w-full text-accent/35"
                     >
-                      <path d="M2 8.5C50 3 168 2.2 218 6.4" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+                      <path d="M2 8.5C68 3 228 2.2 298 6.4" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" fill="none" />
                     </svg>
-                  </span>{" "}
-                  online accountants
+                  </span>
                 </h1>
               </Reveal>
 
               <Reveal delay={130}>
                 <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-ink-2">
-                  Accounts and tax returns for small businesses and individuals, from{" "}
-                  <strong className="font-semibold text-ink">£{site.fromPrice} a year</strong>. A dedicated chartered
-                  accountant, unlimited advice, and no bookkeeping software to buy or learn.
+                  Fixed-fee accountancy for UK small businesses and individuals. A named accountant,
+                  unlimited advice, and no bookkeeping software to buy or learn — or take the lot for{" "}
+                  <strong className="font-semibold text-ink">£{monthlyPlan.price} a month</strong>.
                 </p>
               </Reveal>
 
@@ -75,7 +75,7 @@ export default function HomePage() {
 
               <Reveal delay={250}>
                 <ul className="mt-10 flex flex-wrap gap-x-7 gap-y-3">
-                  {["Fixed annual fee", "No software required", "Filed to HMRC & Companies House"].map((item) => (
+                  {["Fixed fees, quoted upfront", "No software required", "Filed to HMRC & Companies House"].map((item) => (
                     <li key={item} className="flex items-center gap-2 text-sm text-ink-2">
                       <span className="grid h-[18px] w-[18px] place-items-center rounded-full bg-accent-soft p-[3px] text-accent">
                         <Check />
@@ -97,26 +97,21 @@ export default function HomePage() {
                 <div className="animate-floaty relative rounded-[24px] border border-line bg-surface p-7 shadow-[var(--shadow-lg)]">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-3">Your annual fee</p>
-                      <p className="mt-1 text-sm text-ink-2">Limited company · £1k–45k turnover</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-3">Complete monthly</p>
+                      <p className="mt-1 text-sm text-ink-2">Small limited company · ~100 transactions</p>
                     </div>
                     <Pill tone="gold">Fixed</Pill>
                   </div>
 
                   <div className="mt-6 flex items-end gap-2 border-b border-line pb-6">
                     <span className="font-display text-[3.75rem] leading-[0.85] tracking-[-0.05em] text-ink tabular">
-                      <span className="align-top text-[1.75rem] leading-none text-ink-3">£</span>299
+                      <span className="align-top text-[1.75rem] leading-none text-ink-3">£</span>{monthlyPlan.price}
                     </span>
-                    <span className="pb-1.5 text-sm text-ink-3">/ year</span>
+                    <span className="pb-1.5 text-sm text-ink-3">/ month</span>
                   </div>
 
                   <ul className="mt-6 space-y-3">
-                    {[
-                      "Statutory accounts prepared & filed",
-                      "Corporation tax return (CT600)",
-                      "Dedicated chartered accountant",
-                      "Unlimited advice & support",
-                    ].map((line) => (
+                    {monthlyPlan.includes.slice(0, 4).map((line) => (
                       <li key={line} className="flex items-start gap-2.5 text-[0.9375rem] text-ink-2">
                         <span className="mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full bg-accent-soft p-[3px] text-accent">
                           <Check />
@@ -127,13 +122,11 @@ export default function HomePage() {
                   </ul>
 
                   <div className="mt-6 rounded-2xl bg-surface-2 p-4">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-ink-3">High street equivalent</span>
-                      <span className="font-semibold text-ink-3 line-through tabular">£1,500</span>
-                    </div>
-                    <div className="mt-2 flex items-center justify-between text-sm">
-                      <span className="font-semibold text-ink">You keep</span>
-                      <span className="font-semibold text-accent tabular">£1,201</span>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">Also included</p>
+                    <p className="mt-1 text-sm font-semibold text-ink">{monthlyPlan.includes[4]}</p>
+                    <div className="mt-3 flex items-center justify-between border-t border-line pt-3 text-sm">
+                      <span className="font-semibold text-ink">Billed annually</span>
+                      <span className="font-semibold text-accent tabular">£{monthlyPlan.annual}</span>
                     </div>
                   </div>
                 </div>
@@ -141,7 +134,7 @@ export default function HomePage() {
                 {/* small floating badge */}
                 <div className="absolute -bottom-7 -left-6 hidden rounded-2xl border border-line bg-surface px-4 py-3 shadow-[var(--shadow-lg)] lg:-left-16 lg:block">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">Deadline tracked</p>
-                  <p className="mt-0.5 text-sm font-semibold text-ink">Filed 41 days early</p>
+                  <p className="mt-0.5 text-sm font-semibold text-ink">Filed well ahead of time</p>
                 </div>
               </div>
             </Reveal>
@@ -177,7 +170,7 @@ export default function HomePage() {
               <SectionHead
                 eyebrow="What we do"
                 title="Everything a small business has to file — handled"
-                intro="Whether you run a limited company, work for yourself, or just need a self assessment filed, the work is done by a chartered accountant and quoted upfront."
+                intro="Whether you run a limited company, work for yourself, or just need a self assessment filed, the work is done by a qualified accountant and quoted upfront."
               />
             </Reveal>
             <Reveal delay={80}>
@@ -218,8 +211,8 @@ export default function HomePage() {
           <Reveal>
             <SectionHead
               eyebrow="Transparent pricing"
-              title="Move the slider. That's the price."
-              intro={`Business package prices are set by annual turnover and cover everything from £${tiers[0].price} for dormant accounts up to £${tiers[tiers.length - 1].price}. No hourly rates, no surprise invoices.`}
+              title="Every price, on one page"
+              intro={`Pay per service from £49, or put everything on the Complete Monthly plan at £${monthlyPlan.price} a month. Fixed fees either way — no hourly rates and no surprise invoices.`}
               align="center"
             />
           </Reveal>
@@ -235,8 +228,8 @@ export default function HomePage() {
           <Reveal>
             <SectionHead
               eyebrow="Why us"
-              title="Cheap prices. Not a cheap service."
-              intro="We are an online firm, so there is no reception desk and no high street rent to pay for. Those savings go into your fee — not into a thinner service."
+              title="Lower fees. Not a lesser service."
+              intro="We work online, so there is no reception desk and no high street rent built into your bill. That saving goes into your fee — never into a thinner service."
             />
           </Reveal>
 
@@ -338,27 +331,6 @@ export default function HomePage() {
                 </figure>
               </Reveal>
             ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* -------------------------------- FAQ ------------------------------- */}
-      <Section className="border-t border-line">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-            <Reveal>
-              <SectionHead
-                eyebrow="Common questions"
-                title="The things people ask before signing up"
-                intro="If your question isn't here, ask us directly — we answer whether or not you become a client."
-              />
-              <ButtonLink href="/faqs" variant="outline" size="md" className="mt-8">
-                All FAQs <ArrowRight />
-              </ButtonLink>
-            </Reveal>
-            <Reveal delay={100}>
-              <Accordion idPrefix="home-faq" items={faqs.business.slice(0, 5)} />
-            </Reveal>
           </div>
         </Container>
       </Section>

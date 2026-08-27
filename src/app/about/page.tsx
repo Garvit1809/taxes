@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { CTASection, PageHero } from "@/components/sections";
 import { Container, Section, SectionHead } from "@/components/ui";
-import { site } from "@/lib/content";
+import { monthlyPlan, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Richard McIntosh Ltd, trading as taxez, is a UK firm of online accountants serving small businesses and individuals with prices 75–90% lower than high street competitors.",
+    "Next Step Accountancy is a UK firm of online accountants serving small businesses and individuals — accounts, taxation and advisory on fixed, transparent fees.",
 };
 
 const values = [
@@ -36,11 +36,11 @@ export default function AboutPage() {
         eyebrow="Our practice"
         title={
           <>
-            Superior accountancy at a{" "}
-            <span className="font-serif font-normal italic text-accent">substantially lower cost</span>
+            Serious accountancy at a{" "}
+            <span className="font-serif font-normal italic text-accent">genuinely fair price</span>
           </>
         }
-        intro={`${site.legalName}, trading as ${site.name}, was launched with a single mission: give small businesses the standard of accountancy that larger firms reserve for larger fees.`}
+        intro={`${site.name} was founded on one idea: small businesses deserve the standard of accountancy that larger firms reserve for larger fees — and they should be able to see the price before they commit.`}
       />
 
       <Section>
@@ -49,23 +49,24 @@ export default function AboutPage() {
             <Reveal>
               <div className="space-y-6 text-[1.0625rem] leading-relaxed text-ink-2">
                 <p className="font-serif text-[1.625rem] leading-[1.45] text-ink">
-                  We are a growing UK based firm of online accountants who service small businesses and individuals
-                  right across the country.
+                  We are a UK based firm of online accountants looking after small businesses and individuals right
+                  across the country.
                 </p>
                 <p>
-                  As an online firm, our costs are much less than high street accountants. There is no reception to
-                  staff and no expensive high street office to rent, and an efficient paperless workflow means less
-                  time spent on each file without cutting a single corner.
+                  Working online keeps our costs well below those of a high street practice. There is no reception to
+                  staff and no prime-location office to fund, and a lean paperless workflow means less time spent
+                  handling each file — without cutting a single corner on the work itself.
                 </p>
                 <p>
-                  Those savings are passed straight on to you. Our prices are often found to be{" "}
-                  <strong className="font-semibold text-ink">75–90% lower</strong> than our competitors, and the work
-                  is still done and reviewed by a qualified chartered accountant before anything is filed.
+                  That saving goes straight into your fee. Our prices sit{" "}
+                  <strong className="font-semibold text-ink">{site.savingRange}</strong> below typical high street
+                  fees, and every set of accounts is still prepared and reviewed by a qualified accountant before
+                  anything is filed.
                 </p>
                 <p>
-                  Today we look after {site.clients} clients — limited companies, sole traders, partnerships and
-                  individuals — from dormant companies filing their first set of accounts to businesses turning over
-                  well past a quarter of a million pounds.
+                  We look after {site.clients} clients — limited companies, sole traders, partnerships and
+                  individuals — from dormant companies filing their first set of accounts through to established
+                  businesses running payroll and quarterly VAT.
                 </p>
               </div>
             </Reveal>
@@ -78,15 +79,16 @@ export default function AboutPage() {
                     ["Trading name", site.name],
                     ["Registered company", site.legalName],
                     ["Company number", site.companyNumber],
-                    ["Registered in", "Scotland"],
+                    ["Registered in", site.registeredIn],
+                    ["Registered office", site.registeredOffice],
                     ["Clients served", site.clients],
                     ["Practice type", "Online — UK wide"],
-                    ["Accounts from", `£${site.fromPrice} per year`],
-                    ["Self assessment from", "£59 per return"],
+                    ["Complete monthly plan", `£${monthlyPlan.price} per month`],
+                    ["Self assessment from", "£99 per return"],
                   ].map(([label, value]) => (
-                    <div key={label} className="flex items-baseline justify-between gap-6 py-3.5">
-                      <dt className="text-[0.875rem] text-ink-3">{label}</dt>
-                      <dd className="text-right text-[0.9375rem] font-semibold text-ink">{value}</dd>
+                    <div key={label} className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3.5">
+                      <dt className="shrink-0 text-[0.875rem] text-ink-3">{label}</dt>
+                      <dd className="min-w-0 flex-1 text-right text-[0.9375rem] font-semibold text-ink">{value}</dd>
                     </div>
                   ))}
                 </dl>

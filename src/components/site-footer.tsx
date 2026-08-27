@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { nav, site } from "@/lib/content";
+import { nav, portalEnabled, portalUrl, site } from "@/lib/content";
 import { Logo } from "./logo";
 import { ArrowRight, ButtonLink, Container } from "./ui";
 
@@ -29,10 +29,9 @@ const columns = [
   {
     title: "Resources",
     links: [
-      { href: "/faqs", label: "FAQs" },
       { href: "/software", label: "Software & templates" },
-      { href: "/software#portal", label: "Document portal" },
-      { href: site.loginUrl, label: "Client login" },
+      { href: "/software#templates", label: "Bookkeeping templates" },
+      ...(portalEnabled ? [{ href: portalUrl, label: "Client login" }] : []),
     ],
   },
 ];
@@ -45,8 +44,8 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <Logo />
             <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-2">
-              Online chartered accountants for UK small businesses and individuals. Fixed annual
-              fees from £{site.fromPrice}, a dedicated accountant, and no bookkeeping software to buy.
+              {site.tagline} Accounts, taxation and advisory for UK small businesses and
+              individuals — fixed fees, a named accountant, and no bookkeeping software to buy.
             </p>
             <ButtonLink href="/contact" variant="outline" size="sm" className="mt-6">
               Get a fixed quote <ArrowRight />
@@ -74,13 +73,15 @@ export function SiteFooter() {
         <div className="flex flex-col gap-4 border-t border-line py-7 text-sm text-ink-3 sm:flex-row sm:items-center sm:justify-between">
           <p>
             <strong className="font-semibold text-ink-2">{site.name}</strong> is a trading name of{" "}
-            {site.legalName}. Registered company number {site.companyNumber}.
+            {site.legalName}. Registered in {site.registeredIn}, company number {site.companyNumber}.
+            <br />
+            Registered office: {site.registeredOffice}.
           </p>
           <p className="tabular">© {new Date().getFullYear()} {site.legalName}</p>
         </div>
 
         <p className="border-t border-line py-6 text-xs leading-relaxed text-ink-3">
-          Prices shown are annual and exclude VAT where applicable. Information on this site is general
+          Prices shown exclude VAT where applicable. Information on this site is general
           guidance, not personal tax advice — speak to your accountant before acting on it.
         </p>
       </Container>

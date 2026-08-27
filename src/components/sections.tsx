@@ -41,7 +41,7 @@ export function PageHero({
 /** Dark closing call-to-action. Appears at the foot of every page. */
 export function CTASection({
   title = "Find out what you'd actually pay",
-  body = "Tell us your business type and turnover. A chartered accountant reads every enquiry and comes back with a fixed annual price — usually within one working day.",
+  body = "Tell us your business type and what you need filed. A qualified accountant reads every enquiry and comes back with a fixed price — usually within one working day.",
 }: {
   title?: string;
   body?: string;
@@ -50,12 +50,12 @@ export function CTASection({
     <Section className="pb-24">
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-[28px] bg-[#061420] px-7 py-16 text-center sm:px-16 sm:py-20">
+          <div className="relative overflow-hidden rounded-[28px] bg-brand px-7 py-16 text-center sm:px-16 sm:py-20">
             <div aria-hidden className="pointer-events-none absolute inset-0 grid-lines opacity-[0.07]" />
             <div
               aria-hidden
               className="pointer-events-none absolute -bottom-32 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full opacity-30 blur-[100px]"
-              style={{ background: "radial-gradient(circle, #00a878, transparent 70%)" }}
+              style={{ background: "radial-gradient(circle, var(--accent-bright), transparent 70%)" }}
             />
             <div className="relative mx-auto max-w-2xl">
               <h2 className="text-balance text-3xl leading-[1.1] text-white sm:text-[2.75rem]">{title}</h2>
@@ -88,7 +88,7 @@ export function FilingMarquee() {
     "Corporation tax CT600",
     "Self assessment SA100",
     "Partnership return SA800",
-    "VAT — Making Tax Digital",
+    "Bookkeeping & VAT — MTD",
     "PAYE RTI payroll",
     "Confirmation statement",
     "Companies House filing",

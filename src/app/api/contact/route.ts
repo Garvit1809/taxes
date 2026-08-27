@@ -5,7 +5,7 @@ type Payload = {
   email?: string;
   phone?: string;
   business?: string;
-  turnover?: string;
+  transactions?: string;
   source?: string;
   message?: string;
   services?: string[];
@@ -29,18 +29,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please provide a name and a valid email address." }, { status: 400 });
   }
 
-  if (!body.business || !body.turnover) {
-    return NextResponse.json({ error: "Please tell us your business type and turnover." }, { status: 400 });
+  if (!body.business || !body.transactions) {
+    return NextResponse.json(
+      { error: "Please tell us your business type and rough monthly transaction volume." },
+      { status: 400 },
+    );
   }
 
   // Delivery is intentionally pluggable — wire this to your mail provider or CRM.
   // Until then the enquiry is logged so nothing is silently dropped in development.
-  console.info("[taxez] new enquiry", {
+  console.info("[next-step] new enquiry", {
     name,
     email,
     phone: body.phone ?? null,
     business: body.business,
-    turnover: body.turnover,
+    transactions: body.transactions,
     source: body.source ?? null,
     services: body.services ?? [],
     message: body.message ?? null,

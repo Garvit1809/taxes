@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { CTASection, PageHero } from "@/components/sections";
 import { ArrowRight, ButtonLink, Check, Container, Section, SectionHead } from "@/components/ui";
-import { addOns, services, site } from "@/lib/content";
+import { monthlyPlan, servicePrices, services } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Statutory accounts, corporation tax returns, sole trader and partnership accounts, self assessment, VAT returns and payroll — all prepared by chartered accountants for a fixed annual fee.",
+    "Statutory accounts, corporation tax returns, sole trader and partnership accounts, self assessment, bookkeeping, VAT returns and payroll — all prepared by qualified accountants for a fixed fee.",
 };
 
 export default function ServicesPage() {
@@ -15,8 +15,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Chartered accountancy, priced like a subscription"
-        intro="Whatever structure you trade under, the deal is the same: a fixed annual fee, a dedicated chartered accountant, and everything filed on time."
+        title="Everything you have to file, handled properly"
+        intro="Whatever structure you trade under, the deal is the same: a fixed fee agreed upfront, a named accountant who knows your business, and everything filed on time."
       >
         <ButtonLink href="/contact" variant="accent" size="lg">
           Get a fixed quote <ArrowRight />
@@ -65,12 +65,12 @@ export default function ServicesPage() {
               <SectionHead
                 eyebrow="Personal self assessment"
                 title="Peace of mind that your return is filed accurately and on time"
-                intro="Tax planning advice is free to every client. We have particular expertise in rental and holiday lets, profit computation, capital gains, interest and dividends, and foreign income."
+                intro="Tax planning advice is included for every client. We have particular expertise in rental and holiday lets, profit computation, capital gains, interest and dividends, and foreign income."
               />
               <div className="mt-8 rounded-card border border-line bg-canvas p-7">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-3">Self assessment</p>
                 <p className="mt-2 font-display text-[3rem] leading-none tracking-[-0.05em] text-ink tabular">
-                  <span className="align-top text-[1.5rem] text-ink-3">from £</span>59
+                  <span className="align-top text-[1.5rem] text-ink-3">from £</span>99
                 </p>
                 <ButtonLink href="/contact" variant="primary" size="md" className="mt-6">
                   Get started <ArrowRight />
@@ -114,25 +114,29 @@ export default function ServicesPage() {
             />
           </Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {addOns.map((a, i) => (
-              <Reveal key={a.name} delay={i * 70}>
-                <div className="flex h-full flex-col rounded-card border border-line bg-surface p-7">
-                  <h3 className="text-[1.125rem]">{a.name}</h3>
-                  <p className="mt-2 flex-1 text-[0.875rem] leading-relaxed text-ink-2">{a.detail}</p>
-                  <p className="mt-6 border-t border-line pt-5">
-                    <span className="font-display text-2xl font-bold text-ink tabular">{a.price}</span>
-                    <span className="ml-1.5 text-[0.8125rem] text-ink-3">{a.unit}</span>
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+            {servicePrices
+              .filter((s) => s.group === "addon" || s.group === "personal")
+              .map((a, i) => (
+                <Reveal key={a.name} delay={i * 70}>
+                  <div className="flex h-full flex-col rounded-card border border-line bg-surface p-7">
+                    <h3 className="text-[1.125rem]">{a.name}</h3>
+                    <p className="mt-2 flex-1 text-[0.875rem] leading-relaxed text-ink-2">{a.detail}</p>
+                    <p className="mt-6 border-t border-line pt-5">
+                      <span className="font-display text-2xl font-bold text-ink tabular">
+                        {a.from ? "from " : ""}£{a.price}
+                      </span>
+                      <span className="ml-1.5 text-[0.8125rem] text-ink-3">{a.unit}</span>
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
           </div>
         </Container>
       </Section>
 
       <CTASection
-        title={`Tell us what you need filed`}
-        body={`We work with limited companies, sole traders, partnerships and individuals right across the UK — currently ${site.clients} of them.`}
+        title="Tell us what you need filed"
+        body={`We work with limited companies, sole traders, partnerships and individuals across the UK — service by service, or all of it on the £${monthlyPlan.price} a month Complete plan.`}
       />
     </>
   );

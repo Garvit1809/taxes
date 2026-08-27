@@ -7,7 +7,7 @@ import { bonusReason, reasons } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Why us",
   description:
-    "Ten reasons to choose taxez: the lowest prices in the UK, a dedicated chartered accountant, unlimited support, no bookkeeping software required, and deadlines tracked for you.",
+    "Ten reasons to choose Next Step Accountancy: fees well below the high street, a named accountant, unlimited support, no bookkeeping software required, and deadlines tracked for you.",
 };
 
 export default function WhyUsPage() {
@@ -21,7 +21,7 @@ export default function WhyUsPage() {
             <span className="font-serif font-normal italic text-accent">stay</span>
           </>
         }
-        intro="Low prices get people through the door. What keeps them is a chartered accountant who answers the phone, claims every allowance, and never sends an invoice you weren't expecting."
+        intro="A fair price gets people through the door. What keeps them is an accountant who answers the phone, claims every allowance, and never sends an invoice you weren't expecting."
       >
         <ButtonLink href="/contact" variant="accent" size="lg">
           Get a fixed quote <ArrowRight />

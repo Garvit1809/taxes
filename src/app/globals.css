@@ -1,79 +1,45 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 /* ------------------------------------------------------------------
-   Design tokens — taxez
+   Design tokens — Next Step Accountancy
    Ink navy + mint accent. Warm neutral canvas. Both themes explicit.
 ------------------------------------------------------------------- */
 :root {
   color-scheme: light;
 
-  --canvas: #f7f7f5;
+  --canvas: #f6f8fa;
   --surface: #ffffff;
-  --surface-2: #f1f2f0;
-  --surface-inset: #eceeeb;
+  --surface-2: #eef2f6;
+  --surface-inset: #e3e9f0;
 
-  --ink: #0a1420;
-  --ink-2: #38445a;
-  --ink-3: #6b7688;
+  --ink: #0d1b2f;
+  --ink-2: #3d4d63;
+  --ink-3: #6b7c93;
 
-  --line: #e3e5e2;
-  --line-strong: #cfd3ce;
+  --line: #e0e6ed;
+  --line-strong: #c6d0dc;
 
-  --brand: #072033;
-  --brand-2: #0d3b5c;
-  --brand-soft: #e7eef3;
-
-  --accent: #00a878;
-  --accent-ink: #00654a;
-  --accent-soft: #dff5ec;
-
-  --gold: #b98a2f;
-  --gold-soft: #f7efdd;
-
+  /* Brand navy, taken from the NS monogram */
+  --brand: #14315e;
+  --brand-2: #1d4a86;
   --brand-fg: #ffffff;
-  --accent-fg: #04140f;
-  --ring: #00a878;
+  --brand-soft: #e7edf6;
 
-  --shadow-sm: 0 1px 2px rgb(10 20 32 / 0.05);
-  --shadow-md: 0 4px 16px -4px rgb(10 20 32 / 0.09), 0 1px 3px rgb(10 20 32 / 0.05);
-  --shadow-lg: 0 24px 60px -20px rgb(10 20 32 / 0.22), 0 4px 12px -4px rgb(10 20 32 / 0.07);
-  --shadow-glow: 0 0 0 1px rgb(0 168 120 / 0.18), 0 18px 50px -18px rgb(0 168 120 / 0.35);
-}
+  /* Teal accent. --accent is text-safe on white; --accent-bright is for fills. */
+  --accent: #0e8c74;
+  --accent-bright: #23b99a;
+  --accent-fg: #ffffff;
+  --accent-soft: #e0f2ee;
 
-[data-theme="dark"] {
-  color-scheme: dark;
+  --gold: #9a6f1f;
+  --gold-soft: #f6efe0;
 
-  --canvas: #050d14;
-  --surface: #0b161f;
-  --surface-2: #0f1d28;
-  --surface-inset: #132433;
+  --ring: #0e8c74;
 
-  --ink: #e8eef4;
-  --ink-2: #a3b2c2;
-  --ink-3: #74869a;
-
-  --line: #162634;
-  --line-strong: #22384a;
-
-  --brand: #e8eef4;
-  --brand-soft: #10202c;
-
-  --accent: #2ee6a8;
-  --accent-soft: #0c2a22;
-
-  --gold: #e0b45f;
-  --gold-soft: #241d0e;
-
-  --brand-fg: #051019;
-  --accent-fg: #04140f;
-  --ring: #2ee6a8;
-
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-md: 0 4px 16px -4px rgb(0 0 0 / 0.5);
-  --shadow-lg: 0 24px 60px -20px rgb(0 0 0 / 0.7);
-  --shadow-glow: 0 0 0 1px rgb(46 230 168 / 0.22), 0 18px 50px -18px rgb(46 230 168 / 0.3);
+  --shadow-sm: 0 1px 2px rgb(13 27 47 / 0.05);
+  --shadow-md: 0 4px 16px -4px rgb(13 27 47 / 0.1), 0 1px 3px rgb(13 27 47 / 0.05);
+  --shadow-lg: 0 24px 60px -20px rgb(13 27 47 / 0.24), 0 4px 12px -4px rgb(13 27 47 / 0.08);
+  --shadow-glow: 0 0 0 1px rgb(14 140 116 / 0.2), 0 18px 50px -18px rgb(14 140 116 / 0.4);
 }
 
 @theme inline {
@@ -92,6 +58,7 @@
   --color-accent-fg: var(--accent-fg);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-bright: var(--accent-bright);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
 
@@ -121,7 +88,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #04140f;
+  color: #ffffff;
 }
 
 :focus-visible {
