@@ -8,7 +8,7 @@ import { monthlyPlan, packageIncludes, servicePrices } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Fixed accountancy fees — dormant accounts £49, sole trader accounts £299, annual accounts and CT600 from £399, self assessment from £99, payroll £5 per payslip. Complete monthly plan £75 a month.",
+    "Fixed accountancy fees — dormant accounts £49, sole trader accounts £299, annual accounts and CT600 from £599, self assessment from £99, payroll £5 per payslip. Complete monthly plan £75 a month.",
 };
 
 export default function PricingPage() {

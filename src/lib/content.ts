@@ -2,10 +2,9 @@
  * Single source of truth for site copy.
  *
  * ┌───────────────────────────────────────────────────────────────────────┐
- * │ TODO — CLIENT DETAILS STILL REQUIRED                                  │
- * │ Company identity is confirmed. The values still marked TODO below     │
- * │ render as literal "TODO" text in the headline stats and the About     │
- * │ table. Replace them here and the whole site updates.                  │
+ * │ Company identity, client count and the savings figure are confirmed.  │
+ * │ Still outstanding: phone/email, enquiry delivery address, professional │
+ * │ body, domain, logo artwork, favicon, testimonials, xlsx templates.     │
  * └───────────────────────────────────────────────────────────────────────┘
  */
 
@@ -26,10 +25,9 @@ export const site = {
 
   url: 'https://www.nextstepaccountancy.co.uk',
 
-  // TODO(client): supply the real figure. Placeholder shown until then.
-  clients: 'TODO',
-  // TODO(client): supply the real saving range against high street fees.
-  savingRange: 'TODO%',
+  // Supplied by the client, 2 Sep 2026.
+  clients: '600+',
+  savingRange: '50%',
 } as const;
 
 /** Set to false until the client portal exists — hides every portal link. */
@@ -77,7 +75,7 @@ export const servicePrices: ServicePrice[] = [
   {
     name: 'Annual Accounts & CT600',
     variant: 'VAT registered',
-    price: 599,
+    price: 900,
     unit: 'per year',
     group: 'limited',
     detail: 'Statutory accounts and corporation tax return for a VAT registered limited company.',
@@ -85,7 +83,7 @@ export const servicePrices: ServicePrice[] = [
   {
     name: 'Annual Accounts & CT600',
     variant: 'Non-VAT registered',
-    price: 399,
+    price: 599,
     unit: 'per year',
     group: 'limited',
     detail:
