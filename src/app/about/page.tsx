@@ -60,7 +60,7 @@ export default function AboutPage() {
                 <p>
                   That saving goes straight into your fee. Our prices sit{" "}
                   <strong className="font-semibold text-ink">{site.savingRange}</strong> below typical high street
-                  fees, and every set of accounts is still prepared and reviewed by a qualified accountant before
+                  fees, and every set of accounts is still prepared and reviewed by an AAT Licensed Accountant before
                   anything is filed.
                 </p>
                 <p>

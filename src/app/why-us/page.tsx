@@ -7,7 +7,7 @@ import { bonusReason, reasons } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Why us",
   description:
-    "Ten reasons to choose Next Step Accountancy: fees well below the high street, a named accountant, unlimited support, no bookkeeping software required, and deadlines tracked for you.",
+    "Ten reasons to choose Next Step Accountancy: fees well below the high street, a named AAT Licensed Accountant, unlimited support, no bookkeeping software required, and deadlines tracked for you.",
 };
 
 export default function WhyUsPage() {

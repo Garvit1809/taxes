@@ -170,7 +170,7 @@ export default function HomePage() {
               <SectionHead
                 eyebrow="What we do"
                 title="Everything a small business has to file — handled"
-                intro="Whether you run a limited company, work for yourself, or just need a self assessment filed, the work is done by a qualified accountant and quoted upfront."
+                intro="Whether you run a limited company, work for yourself, or just need a self assessment filed, the work is done by an AAT Licensed Accountant and quoted upfront."
               />
             </Reveal>
             <Reveal delay={80}>

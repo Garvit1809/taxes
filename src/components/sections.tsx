@@ -41,7 +41,7 @@ export function PageHero({
 /** Dark closing call-to-action. Appears at the foot of every page. */
 export function CTASection({
   title = "Find out what you'd actually pay",
-  body = "Tell us your business type and what you need filed. A qualified accountant reads every enquiry and comes back with a fixed price — usually within one working day.",
+  body = "Tell us your business type and what you need filed. An AAT Licensed Accountant reads every enquiry and comes back with a fixed price — usually within one working day.",
 }: {
   title?: string;
   body?: string;

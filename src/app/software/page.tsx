@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { CTASection, PageHero } from "@/components/sections";
 import { Check, Container, Pill, Section, SectionHead } from "@/components/ui";
@@ -76,18 +75,16 @@ export default function SoftwarePage() {
               <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-[var(--line)] sm:grid-cols-2">
                 {templates.map((template) => (
                   <li key={template.name}>
-                    <Link
-                      href={template.file || "/contact"}
-                      {...(template.file ? { download: true } : {})}
+                    <a
+                      href={template.file}
+                      download={template.downloadAs}
                       className="group flex h-full items-center justify-between gap-4 bg-canvas p-7 transition-colors hover:bg-surface-2"
                     >
                       <span>
                         <span className="block font-display text-[1.0625rem] font-semibold text-ink transition-colors group-hover:text-accent">
                           {template.name}
                         </span>
-                        <span className="mt-1 block text-[0.8125rem] text-ink-3">
-                          {template.file ? "Excel .xlsx template" : "Ask us for a copy"}
-                        </span>
+                        <span className="mt-1 block text-[0.8125rem] text-ink-3">Excel .xlsx template</span>
                       </span>
                       <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-ink-3 transition-colors group-hover:border-accent group-hover:text-accent">
                         <svg viewBox="0 0 20 20" fill="none" aria-hidden className="h-4 w-4">
@@ -100,7 +97,7 @@ export default function SoftwarePage() {
                           />
                         </svg>
                       </span>
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>

@@ -1,87 +1,105 @@
 /**
- * Turns the supplied NS monogram into the transparent asset the header uses.
+ * Builds every brand asset from the supplied lockup.
  *
- *   node scripts/prepare-logo.mjs <path-to-mark.png>
+ *   node scripts/prepare-logo.mjs public/log.png
  *
- * The favicon generator's output is an RGBA PNG whose alpha channel is fully
- * opaque over a near-white ground, so it cannot be dropped onto the site's
- * off-white canvas as-is. This keys that ground out with a soft alpha ramp, so
- * the anti-aliased curves of the S don't keep a white fringe, then trims to the
- * ink and writes public/brand/ns-mark.png at 2x header size.
+ * The source is a stacked lockup: NS monogram on top, "NEXT STEP ACCOUNTANCY"
+ * beneath. At header size the wordmark would render about 5px tall, so only the
+ * monogram is used as an image; the wordmark is set in type by the Logo
+ * component. Outputs:
  *
- * Requires sharp (already a devDependency).
+ *   public/brand/ns-mark.png           monogram, trimmed
+ *   src/app/icon.png                   192px, favicon
+ *   src/app/apple-icon.png             180px on white (iOS ignores alpha)
+ *   src/app/favicon.ico                16/32/48px
+ *   public/brand/icon-192.png, icon-512.png   manifest icons
+ *
+ * Requires sharp and png-to-ico (both devDependencies).
  */
 import sharp from "sharp";
-import { mkdir } from "node:fs/promises";
+import pngToIco from "png-to-ico";
+import { mkdir, writeFile } from "node:fs/promises";
 
-const src = process.argv[2];
-if (!src) {
-  console.error("usage: node scripts/prepare-logo.mjs <path-to-mark.png>");
-  process.exit(1);
-}
-
+const src = process.argv[2] ?? "public/log.png";
 const OUT = "public/brand";
-
-/** At or above this luminance the pixel is background. */
-const WHITE = 246;
-/** Below this it is fully opaque; between the two we ramp for a clean edge. */
-const SOLID = 225;
-
-const { data, info } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-const { width, height, channels } = info;
-
-for (let i = 0; i < data.length; i += channels) {
-  const r = data[i];
-  const g = data[i + 1];
-  const b = data[i + 2];
-
-  // Only key near-neutral pixels, so the green and teal in the mark survive.
-  if (Math.max(r, g, b) - Math.min(r, g, b) >= 12) continue;
-
-  const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-  if (lum >= WHITE) {
-    data[i + 3] = 0;
-  } else if (lum > SOLID) {
-    data[i + 3] = Math.round(data[i + 3] * (1 - (lum - SOLID) / (WHITE - SOLID)));
-  }
-}
+const APP = "src/app";
 
 await mkdir(OUT, { recursive: true });
 
-const out = await sharp(data, { raw: { width, height, channels } })
-  .png()
-  .trim({ threshold: 1 })
-  .png({ compressionLevel: 9 })
-  .toFile(`${OUT}/ns-mark.png`);
+const meta = await sharp(src).metadata();
 
-console.log(`source ${width}x${height} -> ${OUT}/ns-mark.png ${out.width}x${out.height}`);
-console.log(`aspect ${(out.width / out.height).toFixed(3)}`);
-
-/*
- * Reversed mark for the navy footer. Just over half the logo is dark navy,
- * which would disappear against a navy ground, so those pixels are flipped to
- * white. The green and teal of the S already read well on navy and are left
- * untouched, which keeps the mark recognisable rather than a flat silhouette.
- */
-const rev = Buffer.from(data);
-for (let i = 0; i < rev.length; i += channels) {
-  if (rev[i + 3] === 0) continue;
-  const r = rev[i];
-  const g = rev[i + 1];
-  const b = rev[i + 2];
-  const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-  // Dark and blue-leaning: the navy of the N.
-  if (lum < 95 && b >= g) {
-    rev[i] = 255;
-    rev[i + 1] = 255;
-    rev[i + 2] = 255;
+/** Row-scan for bands of ink, so the monogram is found rather than hard-coded. */
+const { data, info } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+const { width, height, channels } = info;
+const rowHasInk = [];
+for (let y = 0; y < height; y++) {
+  let ink = 0;
+  for (let x = 0; x < width; x++) {
+    const i = (y * width + x) * channels;
+    const lum = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+    if (data[i + 3] > 40 && lum < 235) ink++;
   }
+  rowHasInk.push(ink > 0);
+}
+const bands = [];
+let start = null;
+rowHasInk.forEach((hasInk, y) => {
+  if (hasInk && start === null) start = y;
+  if (!hasInk && start !== null) { bands.push([start, y - 1]); start = null; }
+});
+if (start !== null) bands.push([start, height - 1]);
+if (!bands.length) throw new Error("no ink found in source");
+
+const [markTop, markBottom] = bands[0];
+const pad = 4;
+const top = Math.max(0, markTop - pad);
+const markHeight = Math.min(height - top, markBottom - markTop + 1 + pad * 2);
+
+// Two passes: sharp reorders extract and trim internally, so chaining them
+// on one pipeline gives "bad extract area".
+const cropped = await sharp(src)
+  .extract({ left: 0, top, width, height: markHeight })
+  .png()
+  .toBuffer();
+
+const mark = await sharp(cropped)
+  .trim({ threshold: 10 })
+  .png({ compressionLevel: 9 })
+  .toBuffer({ resolveWithObject: true });
+
+await writeFile(`${OUT}/ns-mark.png`, mark.data);
+
+/* Icons, all from the same monogram so the favicon matches the header. */
+const clear = { r: 0, g: 0, b: 0, alpha: 0 };
+
+/** Square icon: mark scaled to 82% of the box, centred, on the given ground. */
+async function square(size, background = clear) {
+  const inner = Math.round(size * 0.82);
+  const fitted = await sharp(mark.data)
+    .resize({ width: inner, height: inner, fit: "inside" })
+    .toBuffer({ resolveWithObject: true });
+  const dx = size - fitted.info.width;
+  const dy = size - fitted.info.height;
+  return sharp(fitted.data)
+    .extend({
+      left: Math.floor(dx / 2),
+      right: Math.ceil(dx / 2),
+      top: Math.floor(dy / 2),
+      bottom: Math.ceil(dy / 2),
+      background,
+    })
+    .png({ compressionLevel: 9 })
+    .toBuffer();
 }
 
-const revOut = await sharp(rev, { raw: { width, height, channels } })
-  .png()
-  .trim({ threshold: 1 })
-  .png({ compressionLevel: 9 })
-  .toFile(`${OUT}/ns-mark-reversed.png`);
+await writeFile(`${APP}/icon.png`, await square(192));
+await writeFile(`${OUT}/icon-192.png`, await square(192));
+await writeFile(`${OUT}/icon-512.png`, await square(512));
+// iOS composites Apple touch icons on black, so give this one a white ground.
+await writeFile(`${APP}/apple-icon.png`, await square(180, { r: 255, g: 255, b: 255, alpha: 1 }));
 
-console.log(`wrote ${OUT}/ns-mark-reversed.png ${revOut.width}x${revOut.height}`);
+await writeFile(`${APP}/favicon.ico`, await pngToIco(await Promise.all([16, 32, 48].map((s) => square(s)))));
+
+console.log(`source ${meta.width}x${meta.height}, ink bands: ${bands.map(([a, b]) => `${a}-${b}`).join(", ")}`);
+console.log(`mark ${mark.info.width}x${mark.info.height} (aspect ${(mark.info.width / mark.info.height).toFixed(3)})`);
+console.log("wrote mark, icon.png, apple-icon.png, favicon.ico, manifest icons");

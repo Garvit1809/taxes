@@ -7,7 +7,7 @@ import { monthlyPlan, servicePrices, services } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Statutory accounts, corporation tax returns, sole trader and partnership accounts, self assessment, bookkeeping, VAT returns and payroll — all prepared by qualified accountants for a fixed fee.",
+    "Statutory accounts, corporation tax returns, sole trader and partnership accounts, self assessment, bookkeeping, VAT returns and payroll — all prepared by AAT Licensed Accountants for a fixed fee.",
 };
 
 export default function ServicesPage() {

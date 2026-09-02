@@ -54,7 +54,7 @@ export function QuoteForm() {
         </span>
         <h3 className="mt-6 text-2xl">Thanks — that&apos;s with us</h3>
         <p className="mx-auto mt-3 max-w-md text-[0.9375rem] leading-relaxed text-ink-2">
-          A qualified accountant will read it personally and reply with a fixed price, usually
+          An AAT Licensed Accountant will read it personally and reply with a fixed price, usually
           within one working day. No call centre, no sales pitch.
         </p>
       </div>

@@ -8,11 +8,11 @@ import { monthlyPlan, servicePrices, site } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Contact & quote",
   description:
-    "Tell us your business type and what you need filed and a qualified accountant will send you a fixed price, usually within one working day.",
+    "Tell us your business type and what you need filed and an AAT Licensed Accountant will send you a fixed price, usually within one working day.",
 };
 
 const assurances = [
-  "A qualified accountant reads every enquiry personally",
+  "An AAT Licensed Accountant reads every enquiry personally",
   "A fixed price, agreed before any work begins",
   "No sales calls and no marketing lists",
   "Switching from another accountant? We handle the handover",

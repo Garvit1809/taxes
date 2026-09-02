@@ -25,6 +25,14 @@ export const site = {
 
   url: 'https://www.nextstepaccountancy.co.uk',
 
+  // Confirmed by the client: AAT licensed, so AAT is also the AML supervisor.
+  // Never describe the firm as "chartered" — that is a different qualification.
+  credential: 'AAT Licensed Accountant',
+  professionalBody: 'Association of Accounting Technicians (AAT)',
+  // TODO(client): AAT requires licensed members to show their licence number.
+  // The regulatory line renders without it until this is filled in.
+  licenceNumber: '',
+
   // Supplied by the client, 2 Sep 2026.
   clients: '600+',
   savingRange: '50%',
@@ -145,7 +153,7 @@ export const priceGroups: { id: PriceGroup | 'all'; label: string }[] = [
 export const packageIncludes = [
   'Accounts preparation & filing',
   'Tax return preparation & filing',
-  'A named qualified accountant',
+  'A named AAT Licensed Accountant',
   'Unlimited advice & support',
   'Timely replies to queries',
   'Proactive tax planning',
@@ -231,8 +239,8 @@ export const reasons = [
     statLabel: 'below typical high street fees',
   },
   {
-    title: 'A qualified accountant who knows your name',
-    body: 'You are looked after by one named, experienced accountant who answers your questions directly and reviews every figure for accuracy before anything is filed.',
+    title: 'An AAT Licensed Accountant who knows your name',
+    body: 'You are looked after by one named AAT Licensed Accountant who answers your questions directly and reviews every figure for accuracy before anything is filed.',
   },
   {
     title: 'Ask us anything, as often as you like',
@@ -343,14 +351,30 @@ export const softwareOptions = [
 ];
 
 /**
- * TODO(client): the .xlsx files themselves still need to be produced and saved
- * to /public/templates/. Until a file exists the card links to the contact page.
+ * Files live in /public/sheets under URL-safe names; `downloadAs` is what the
+ * visitor's browser saves them as.
  */
 export const templates = [
-  { name: 'VAT Registered Limited Companies', file: '' },
-  { name: 'NO-VAT Limited Companies', file: '' },
-  { name: 'VAT Registered Sole Trader', file: '' },
-  { name: 'NO-VAT Sole Trader', file: '' },
+  {
+    name: 'VAT Registered Limited Companies',
+    file: '/sheets/ltd-vat-registered.xlsx',
+    downloadAs: 'Next Step Bookkeeping - Ltd Company VAT Registered.xlsx',
+  },
+  {
+    name: 'NO-VAT Limited Companies',
+    file: '/sheets/ltd-non-vat.xlsx',
+    downloadAs: 'Next Step Bookkeeping - Ltd Company Non-VAT.xlsx',
+  },
+  {
+    name: 'VAT Registered Sole Trader',
+    file: '/sheets/sole-trader-vat-registered.xlsx',
+    downloadAs: 'Next Step Bookkeeping - Sole Trader VAT Registered.xlsx',
+  },
+  {
+    name: 'NO-VAT Sole Trader',
+    file: '/sheets/sole-trader-non-vat.xlsx',
+    downloadAs: 'Next Step Bookkeeping - Sole Trader Non-VAT.xlsx',
+  },
 ];
 
 /* ---------------------------------- form data ------------------------------- */

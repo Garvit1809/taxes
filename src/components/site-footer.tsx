@@ -83,6 +83,9 @@ export function SiteFooter() {
             {site.legalName}. Registered in {site.registeredIn}, company number {site.companyNumber}.
             <br />
             Registered office: {site.registeredOffice}.
+            <br />
+            Licensed and regulated by the {site.professionalBody}
+            {site.licenceNumber ? ` under licence number ${site.licenceNumber}` : ""}.
           </p>
           <p className="tabular">© {new Date().getFullYear()} {site.legalName}</p>
         </div>
