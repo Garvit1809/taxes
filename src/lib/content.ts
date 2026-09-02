@@ -3,8 +3,9 @@
  *
  * ┌───────────────────────────────────────────────────────────────────────┐
  * │ Company identity, client count and the savings figure are confirmed.  │
- * │ Still outstanding: phone/email, enquiry delivery address, professional │
- * │ body, domain, logo artwork, favicon, testimonials, xlsx templates.     │
+ * │ Still outstanding: AAT licence number, real testimonials, and the      │
+ * │ claims marked for the client to confirm (reply time, software cost,    │
+ * │ monthly plan terms, VAT treatment).                                    │
  * └───────────────────────────────────────────────────────────────────────┘
  */
 
@@ -23,7 +24,12 @@ export const site = {
   // address — label it "Registered office", never present it as a visitor office.
   registeredOffice: "Flat 24 Demontfort House Shirrall Grove, Kingshurst, Solihull, England, B37 6JR",
 
+  // Confirmed 2 Sep 2026 — matches the domain on the client's mailbox.
   url: 'https://www.nextstepaccountancy.co.uk',
+
+  phone: '+44 7887 158992',
+  phoneHref: 'tel:+447887158992',
+  email: 'info@nextstepaccountancy.co.uk',
 
   // Confirmed by the client: AAT licensed, so AAT is also the AML supervisor.
   // Never describe the firm as "chartered" — that is a different qualification.

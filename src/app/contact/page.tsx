@@ -42,6 +42,44 @@ export default function ContactPage() {
             <Reveal delay={90}>
               <div className="flex flex-col gap-6">
                 <div className="rounded-card border border-line bg-surface p-7">
+                  <h2 className="text-[1.125rem]">Rather just talk to us?</h2>
+                  <ul className="mt-5 space-y-3.5">
+                    <li>
+                      <a
+                        href={site.phoneHref}
+                        className="group flex items-center gap-3 text-[0.9375rem] font-semibold text-ink transition-colors hover:text-accent"
+                      >
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-accent-soft text-accent">
+                          <svg viewBox="0 0 20 20" fill="none" aria-hidden className="h-4 w-4">
+                            <path
+                              d="M4.2 3.5h3l1.2 3-1.7 1.3a10 10 0 0 0 4.5 4.5l1.3-1.7 3 1.2v3a1.2 1.2 0 0 1-1.3 1.2A12.7 12.7 0 0 1 3 4.8 1.2 1.2 0 0 1 4.2 3.5Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                        {site.phone}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href={`mailto:${site.email}`}
+                        className="group flex items-center gap-3 text-[0.9375rem] font-semibold text-ink transition-colors hover:text-accent"
+                      >
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-accent-soft text-accent">
+                          <svg viewBox="0 0 20 20" fill="none" aria-hidden className="h-4 w-4">
+                            <rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                            <path d="m3.5 6 6.5 4.5L16.5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                          </svg>
+                        </span>
+                        <span className="break-all">{site.email}</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="rounded-card border border-line bg-surface p-7">
                   <h2 className="text-[1.125rem]">What happens next</h2>
                   <ul className="mt-5 space-y-3.5">
                     {assurances.map((item) => (

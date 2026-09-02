@@ -47,6 +47,41 @@ export function SiteFooter() {
               {site.tagline} Accounts, taxation and advisory for UK small businesses and
               individuals — fixed fees, a named accountant, and no bookkeeping software to buy.
             </p>
+            <ul className="mt-6 space-y-3">
+              <li>
+                <a
+                  href={site.phoneHref}
+                  className="group flex items-center gap-3 text-[0.9375rem] text-footer-ink-2 transition-colors hover:text-white"
+                >
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[var(--footer-line)] bg-white/5 transition-colors group-hover:border-white/35">
+                    <svg viewBox="0 0 20 20" fill="none" aria-hidden className="h-4 w-4">
+                      <path
+                        d="M4.2 3.5h3l1.2 3-1.7 1.3a10 10 0 0 0 4.5 4.5l1.3-1.7 3 1.2v3a1.2 1.2 0 0 1-1.3 1.2A12.7 12.7 0 0 1 3 4.8 1.2 1.2 0 0 1 4.2 3.5Z"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  {site.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="group flex items-center gap-3 text-[0.9375rem] text-footer-ink-2 transition-colors hover:text-white"
+                >
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[var(--footer-line)] bg-white/5 transition-colors group-hover:border-white/35">
+                    <svg viewBox="0 0 20 20" fill="none" aria-hidden className="h-4 w-4">
+                      <rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="m3.5 6 6.5 4.5L16.5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                  <span className="break-all">{site.email}</span>
+                </a>
+              </li>
+            </ul>
+
             <ButtonLink
               href="/contact"
               size="sm"
