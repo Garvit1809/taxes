@@ -34,6 +34,19 @@
   --gold: #9a6f1f;
   --gold-soft: #f6efe0;
 
+  /* Warm cream ground for hero sections, per the client's reference. */
+  --hero: #f6f2ea;
+
+  /* Navy footer region: the closing CTA and the footer share this ground so
+     they read as one block, with the CTA panel a shade lighter on top. */
+  --footer: #123a5c;
+  --footer-panel: #17456b;
+  --footer-ink: #eaf1f8;
+  --footer-ink-2: #bccde0;
+  --footer-ink-3: #93aac2;
+  --footer-line: rgb(255 255 255 / 0.13);
+  --footer-head: #eda93f;
+
   --ring: #0e8c74;
 
   --shadow-sm: 0 1px 2px rgb(13 27 47 / 0.05);
@@ -61,6 +74,13 @@
   --color-accent-bright: var(--accent-bright);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
+  --color-hero: var(--hero);
+  --color-footer: var(--footer);
+  --color-footer-panel: var(--footer-panel);
+  --color-footer-ink: var(--footer-ink);
+  --color-footer-ink-2: var(--footer-ink-2);
+  --color-footer-ink-3: var(--footer-ink-3);
+  --color-footer-head: var(--footer-head);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, sans-serif;
@@ -114,6 +134,12 @@ h1, h2, h3, h4 {
     linear-gradient(to right, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px);
   background-size: 64px 64px;
+}
+
+/* Soft dot field used on the hero, in place of the old line grid. */
+.dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 14%, transparent) 1px, transparent 0);
+  background-size: 22px 22px;
 }
 
 .mask-fade-b {

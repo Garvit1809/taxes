@@ -38,16 +38,20 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-line bg-surface">
+    <footer className="mt-auto bg-footer text-footer-ink-2">
       <Container>
         <div className="grid gap-12 py-16 lg:grid-cols-[1.4fr_2fr]">
           <div className="max-w-sm">
-            <Logo />
-            <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-2">
+            <Logo variant="reversed" />
+            <p className="mt-5 text-[0.9375rem] leading-relaxed text-footer-ink-2">
               {site.tagline} Accounts, taxation and advisory for UK small businesses and
               individuals — fixed fees, a named accountant, and no bookkeeping software to buy.
             </p>
-            <ButtonLink href="/contact" variant="outline" size="sm" className="mt-6">
+            <ButtonLink
+              href="/contact"
+              size="sm"
+              className="mt-6 border border-[var(--footer-line)] bg-white/5 text-footer-ink hover:border-white/35 hover:bg-white/10"
+            >
               Get a fixed quote <ArrowRight />
             </ButtonLink>
           </div>
@@ -55,11 +59,14 @@ export function SiteFooter() {
           <div className="grid gap-10 sm:grid-cols-3">
             {columns.map((col) => (
               <nav key={col.title} aria-label={col.title}>
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-3">{col.title}</h3>
+                <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-footer-head">{col.title}</h3>
                 <ul className="mt-4 space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link href={link.href} className="text-[0.9375rem] text-ink-2 transition-colors hover:text-accent">
+                      <Link
+                        href={link.href}
+                        className="text-[0.9375rem] text-footer-ink-2 transition-colors hover:text-white"
+                      >
                         {link.label}
                       </Link>
                     </li>
@@ -70,9 +77,9 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-line py-7 text-sm text-ink-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-t border-[var(--footer-line)] py-7 text-sm text-footer-ink-3 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            <strong className="font-semibold text-ink-2">{site.name}</strong> is a trading name of{" "}
+            <strong className="font-semibold text-footer-ink">{site.name}</strong> is a trading name of{" "}
             {site.legalName}. Registered in {site.registeredIn}, company number {site.companyNumber}.
             <br />
             Registered office: {site.registeredOffice}.
@@ -80,7 +87,7 @@ export function SiteFooter() {
           <p className="tabular">© {new Date().getFullYear()} {site.legalName}</p>
         </div>
 
-        <p className="border-t border-line py-6 text-xs leading-relaxed text-ink-3">
+        <p className="border-t border-[var(--footer-line)] py-6 text-xs leading-relaxed text-footer-ink-3">
           Prices shown exclude VAT where applicable. Information on this site is general
           guidance, not personal tax advice — speak to your accountant before acting on it.
         </p>

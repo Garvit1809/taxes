@@ -18,11 +18,11 @@ export default function HomePage() {
   return (
     <>
       {/* ------------------------------- Hero ------------------------------- */}
-      <div className="relative overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute inset-0 grid-lines mask-fade-radial opacity-60" />
+      <div className="relative overflow-hidden bg-hero">
+        <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid mask-fade-radial opacity-80" />
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-56 right-[-10%] h-[620px] w-[820px] rounded-full opacity-[0.18] blur-[130px]"
+          className="pointer-events-none absolute -top-56 right-[-10%] h-[620px] w-[820px] rounded-full opacity-[0.13] blur-[130px]"
           style={{ background: "radial-gradient(circle, var(--accent), transparent 68%)" }}
         />
         <Container>

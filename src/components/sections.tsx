@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Reveal } from "./reveal";
-import { ArrowRight, ButtonLink, Container, Eyebrow, Section } from "./ui";
+import { ArrowRight, ButtonLink, Container, Eyebrow } from "./ui";
 
 /** Shared hero used by every page except the homepage. */
 export function PageHero({
@@ -15,11 +15,11 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <div className="relative overflow-hidden border-b border-line">
-      <div aria-hidden className="pointer-events-none absolute inset-0 grid-lines mask-fade-b opacity-[0.55]" />
+    <div className="relative overflow-hidden border-b border-line bg-hero">
+      <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid mask-fade-b opacity-70" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-[460px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.16] blur-[110px]"
+        className="pointer-events-none absolute -top-40 left-1/2 h-[460px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.12] blur-[110px]"
         style={{ background: "radial-gradient(circle, var(--accent), transparent 70%)" }}
       />
       <Container>
@@ -47,10 +47,10 @@ export function CTASection({
   body?: string;
 }) {
   return (
-    <Section className="pb-24">
+    <section className="bg-footer pb-14 pt-20 sm:pt-28">
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-[28px] bg-brand px-7 py-16 text-center sm:px-16 sm:py-20">
+          <div className="relative overflow-hidden rounded-[28px] border border-[var(--footer-line)] bg-footer-panel px-7 py-16 text-center sm:px-16 sm:py-20">
             <div aria-hidden className="pointer-events-none absolute inset-0 grid-lines opacity-[0.07]" />
             <div
               aria-hidden
@@ -77,7 +77,7 @@ export function CTASection({
           </div>
         </Reveal>
       </Container>
-    </Section>
+    </section>
   );
 }
 

@@ -30,8 +30,8 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ${
         scrolled || open
-          ? "border-b border-line bg-canvas/85 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-line bg-surface/85 backdrop-blur-xl"
+          : "border-b border-transparent bg-hero"
       }`}
     >
       <Container>
@@ -91,7 +91,7 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className="border-t border-line bg-canvas lg:hidden"
+        className="border-t border-line bg-hero lg:hidden"
       >
         <Container>
           <ul className="flex flex-col py-3">

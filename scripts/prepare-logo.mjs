@@ -56,3 +56,32 @@ const out = await sharp(data, { raw: { width, height, channels } })
 
 console.log(`source ${width}x${height} -> ${OUT}/ns-mark.png ${out.width}x${out.height}`);
 console.log(`aspect ${(out.width / out.height).toFixed(3)}`);
+
+/*
+ * Reversed mark for the navy footer. Just over half the logo is dark navy,
+ * which would disappear against a navy ground, so those pixels are flipped to
+ * white. The green and teal of the S already read well on navy and are left
+ * untouched, which keeps the mark recognisable rather than a flat silhouette.
+ */
+const rev = Buffer.from(data);
+for (let i = 0; i < rev.length; i += channels) {
+  if (rev[i + 3] === 0) continue;
+  const r = rev[i];
+  const g = rev[i + 1];
+  const b = rev[i + 2];
+  const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+  // Dark and blue-leaning: the navy of the N.
+  if (lum < 95 && b >= g) {
+    rev[i] = 255;
+    rev[i + 1] = 255;
+    rev[i + 2] = 255;
+  }
+}
+
+const revOut = await sharp(rev, { raw: { width, height, channels } })
+  .png()
+  .trim({ threshold: 1 })
+  .png({ compressionLevel: 9 })
+  .toFile(`${OUT}/ns-mark-reversed.png`);
+
+console.log(`wrote ${OUT}/ns-mark-reversed.png ${revOut.width}x${revOut.height}`);
