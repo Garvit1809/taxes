@@ -29,15 +29,15 @@ export const site = {
 
   phone: '+44 7887 158992',
   phoneHref: 'tel:+447887158992',
+  phone2: '+44 7823 945004',
+  phoneHref2: 'tel:+447823945004',
   email: 'info@nextstepaccountancy.co.uk',
 
   // Confirmed by the client: AAT licensed, so AAT is also the AML supervisor.
   // Never describe the firm as "chartered" — that is a different qualification.
   credential: 'AAT Licensed Accountant',
   professionalBody: 'Association of Accounting Technicians (AAT)',
-  // TODO(client): AAT requires licensed members to show their licence number.
-  // The regulatory line renders without it until this is filled in.
-  licenceNumber: '',
+  licenceNumber: '1001316',
 
   // Supplied by the client, 2 Sep 2026.
   clients: '600+',

@@ -64,6 +64,24 @@ export default function ContactPage() {
                     </li>
                     <li>
                       <a
+                        href={site.phoneHref2}
+                        className="group flex items-center gap-3 text-[0.9375rem] font-semibold text-ink transition-colors hover:text-accent"
+                      >
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-accent-soft text-accent">
+                          <svg viewBox="0 0 20 20" fill="none" aria-hidden className="h-4 w-4">
+                            <path
+                              d="M4.2 3.5h3l1.2 3-1.7 1.3a10 10 0 0 0 4.5 4.5l1.3-1.7 3 1.2v3a1.2 1.2 0 0 1-1.3 1.2A12.7 12.7 0 0 1 3 4.8 1.2 1.2 0 0 1 4.2 3.5Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                        {site.phone2}
+                      </a>
+                    </li>
+                    <li>
+                      <a
                         href={`mailto:${site.email}`}
                         className="group flex items-center gap-3 text-[0.9375rem] font-semibold text-ink transition-colors hover:text-accent"
                       >
